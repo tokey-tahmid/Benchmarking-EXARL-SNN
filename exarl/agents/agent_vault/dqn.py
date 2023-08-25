@@ -1,23 +1,3 @@
-# This material was prepared as an account of work sponsored by an agency of the
-# United States Government.  Neither the United States Government nor the United
-# States Department of Energy, nor Battelle, nor any of their employees, nor any
-# jurisdiction or organization that has cooperated in the development of these
-# materials, makes any warranty, express or implied, or assumes any legal
-# liability or responsibility for the accuracy, completeness, or usefulness or
-# any information, apparatus, product, software, or process disclosed, or
-# represents that its use would not infringe privately owned rights. Reference
-# herein to any specific commercial product, process, or service by trade name,
-# trademark, manufacturer, or otherwise does not necessarily constitute or imply
-# its endorsement, recommendation, or favoring by the United States Government
-# or any agency thereof, or Battelle Memorial Institute. The views and opinions
-# of authors expressed herein do not necessarily state or reflect those of the
-# United States Government or any agency thereof.
-#                 PACIFIC NORTHWEST NATIONAL LABORATORY
-#                            operated by
-#                             BATTELLE
-#                             for the
-#                   UNITED STATES DEPARTMENT OF ENERGY
-#                    under Contract DE-AC05-76RL01830
 import time
 import os
 import math
@@ -57,8 +37,7 @@ class LossHistory(keras.callbacks.Callback):
 
     def on_batch_end(self, batch, logs={}):
         self.loss.append(logs.get('loss'))
-
-# The Multi-Learner Discrete Double Deep Q-Network
+        
 class DQN(erl.ExaAgent):
     """Multi-Learner Discrete Double Deep Q-Network with Prioritized Experience Replay
     """
@@ -71,7 +50,6 @@ class DQN(erl.ExaAgent):
             is_learner (bool): Used to indicate if the agent is a learner or an actor
         """
 
-        # Initial values
         self.is_learner = is_learner
         self.model = None
         self.target_model = None
@@ -81,12 +59,8 @@ class DQN(erl.ExaAgent):
 
         self.env = env
         self.agent_comm = ExaComm.agent_comm
-
-        # MPI
         self.rank = self.agent_comm.rank
         self.size = self.agent_comm.size
-
-        # Timers
         self.training_time = 0
         self.ntraining_time = 0
         self.dataprep_time = 0
@@ -94,16 +68,10 @@ class DQN(erl.ExaAgent):
 
         self.enable_xla = True if cd.run_params['xla'] == "True" else False
         if self.enable_xla:
-            # Optimization using XLA (1.1x speedup)
             tf.config.optimizer.set_jit(True)
-
-            # Optimization using mixed precision (1.5x speedup)
-            # Layers use float16 computations and float32 variables
             from tensorflow.keras.mixed_precision import experimental as mixed_precision
             policy = mixed_precision.Policy('mixed_float16')
             mixed_precision.set_policy(policy)
-
-        # dqn intrinsic variables
         self.results_dir = cd.run_params['output_dir']
         self.gamma = cd.run_params['gamma']
         self.epsilon = cd.run_params['epsilon']
@@ -115,83 +83,55 @@ class DQN(erl.ExaAgent):
         self.model_type = cd.run_params['model_type']
 
         if self.model_type == 'MLP':
-            # for mlp
             self.dense = cd.run_params['dense']
 
         if self.model_type == 'LSTM':
-            # for lstm
             self.lstm_layers = cd.run_params['lstm_layers']
             self.gauss_noise = cd.run_params['gauss_noise']
             self.regularizer = cd.run_params['regularizer']
             self.clipnorm = cd.run_params['clipnorm']
             self.clipvalue = cd.run_params['clipvalue']
-
-        # for both
         self.activation = cd.run_params['activation']
         self.out_activation = cd.run_params['out_activation']
         self.optimizer = cd.run_params['optimizer']
         self.loss = cd.run_params['loss']
         self.n_actions = cd.run_params['nactions']
         self.priority_scale = cd.run_params['priority_scale']
-
-        # Check if the action space is discrete
         self.is_discrete = (type(env.action_space) == gym.spaces.discrete.Discrete)
-        # If continuous, discretize the action space
-        # TODO: Incorpoorate Ai's class
         if not self.is_discrete:
             env.action_space.n = self.n_actions
             self.actions = np.linspace(env.action_space.low, env.action_space.high, self.n_actions)
-
-        # Data types of action and observation space
         self.dtype_action = np.array(self.env.action_space.sample()).dtype
         self.dtype_observation = self.env.observation_space.sample().dtype
-
-        # Setup GPU cfg
         if ExaComm.is_learner():
             logger.info("Setting GPU rank", self.rank)
             config = tf.compat.v1.ConfigProto(device_count={'GPU': 1, 'CPU': 1})
         else:
             logger.info("Setting no GPU rank", self.rank)
             config = tf.compat.v1.ConfigProto(device_count={'GPU': 0, 'CPU': 1})
-        # Get which device to run on
         self.device = self._get_device()
 
         config.gpu_options.allow_growth = True
         sess = tf.compat.v1.Session(config=config)
         tf.compat.v1.keras.backend.set_session(sess)
-
-        # Build network model
         if self.is_learner:
             with tf.device(self.device):
                 self.model = self._build_model()
                 self.model.compile(loss=self.loss, optimizer=self.optimizer)
                 self.model.summary()
-            # self.mirrored_strategy = tf.distribute.MirroredStrategy()
-            # logger.info("Using learner strategy: {}".format(self.mirrored_strategy))
-            # with self.mirrored_strategy.scope():
-            #     self.model = self._build_model()
-            #     self.model._name = "learner"
-            #     self.model.compile(loss=self.loss, optimizer=self.optimizer)
-            #     logger.info("Active model: \n".format(self.model.summary()))
         else:
             self.model = None
         with tf.device('/CPU:0'):
             self.target_model = self._build_model()
             self.target_model._name = "target_model"
             self.target_model.compile(loss=self.loss, optimizer=self.optimizer)
-            # self.target_model.summary()
             self.target_weights = self.target_model.get_weights()
 
         if multiLearner and ExaComm.is_learner():
             hvd.init(comm=ExaComm.learner_comm.raw())
             self.first_batch = 1
-            # TODO: Update candle driver to include different losses and optimizers
-            # Default reduction is tf.keras.losses.Reduction.AUTO which errors out with distributed training
-            # self.loss_fn = tf.keras.losses.MeanSquaredError(reduction=tf.keras.losses.Reduction.NONE)
             self.loss_fn = cd.candle.build_loss(self.loss, cd.kerasDefaults, reduction='none')
-            # self.opt = tf.keras.optimizers.Adam(self.learning_rate * hvd.size())
             self.opt = cd.candle.build_optimizer(self.optimizer, self.learning_rate * hvd.size(), cd.kerasDefaults)
-
         self.maxlen = cd.run_params['mem_length']
         self.replay_buffer = PrioritizedReplayBuffer(maxlen=self.maxlen)
 
@@ -225,8 +165,6 @@ class DQN(erl.ExaAgent):
             return build_model(self)
         else:
             sys.exit("Oops! That was not a valid model type. Try again...")
-
-    # TODO: Check if this is used in any workflow, if not delete
     def set_learner(self):
         logger.debug(
             "Agent[{}] - Creating active model for the learner".format(self.rank)
@@ -244,7 +182,6 @@ class DQN(erl.ExaAgent):
         """
         lost_data = self.replay_buffer.add((state, action, reward, next_state, done))
         if lost_data and self.priority_scale:
-            # logger.warning("Priority replay buffer size too small. Data loss negates replay effect!")
             print("Priority replay buffer size too small. Data loss negates replay effect!", flush=True)
 
     def get_action(self, state):
@@ -331,9 +268,7 @@ class DQN(erl.ExaAgent):
                 indices (numpy array): data indices
                 importance (numpy array): importance weights
         """
-        # Has data checks if the buffer is greater than batch size for training
         if not self.has_data():
-            # Worker method to create samples for training
             batch_states = np.zeros((self.batch_size, 1, self.env.observation_space.shape[0]), dtype=self.dtype_observation)
             batch_target = np.zeros((self.batch_size, self.env.action_space.n), dtype=self.dtype_action)
             indices = -1 * np.ones(self.batch_size)
@@ -409,8 +344,6 @@ class DQN(erl.ExaAgent):
             else:
                 sample_weight = np.ones(len(batch[0]))
             loss_value = self.loss_fn(batch[1], probs, sample_weight=sample_weight)
-
-        # Horovod distributed gradient tape
         tape = hvd.DistributedGradientTape(tape)
         grads = tape.gradient(loss_value, self.model.trainable_variables)
         self.opt.apply_gradients(zip(grads, self.model.trainable_variables))
@@ -486,7 +419,6 @@ class DQN(erl.ExaAgent):
             pickle_list = pickle.load(f)
 
         for layerId in range(len(layers)):
-            # assert(layers[layerId].name == pickle_list[layerId][0])
             layers[layerId].set_weights(pickle_list[layerId][1])
 
     def save(self, filename):
