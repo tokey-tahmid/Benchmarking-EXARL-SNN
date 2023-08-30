@@ -20,6 +20,12 @@ from exarl.utils import log
 from exarl.utils.introspect import introspectTrace
 from tensorflow.compat.v1.keras.backend import set_session
 
+import bindsnet.network as network
+from bindsnet.network import Network
+from bindsnet.layers import Input, LIFNodes, Connection
+from bindsnet.learning import PostPre
+from bindsnet.encoding import poisson
+
 if ExaComm.num_learners > 1:
     import horovod.tensorflow as hvd
     multiLearner = True
@@ -135,7 +141,9 @@ class DQN(erl.ExaAgent):
             return '/CPU:0'
 
     def _build_model(self):
-        if self.model_type == 'MLP':
+        if self.model_type == 'SNN':
+            return self._build_snn_model()
+        elif self.model_type == 'MLP':
             from exarl.agents.agent_vault._build_mlp import build_model
             return build_model(self)
         elif self.model_type == 'LSTM':
@@ -143,6 +151,24 @@ class DQN(erl.ExaAgent):
             return build_model(self)
         else:
             sys.exit("Oops! That was not a valid model type. Try again...")
+    def _build_snn_model(self):
+        net = Network()
+        input_layer = Input(n=self.env.observation_space.shape[0])  # Use the observation space size as input size
+        middle_layer = LIFNodes(n=128)  # Example size, you can adjust
+        output_layer = LIFNodes(n=self.env.action_space.n)  # Use the action space size as output size
+        
+        # Connect layers
+        input_middle_conn = Connection(source=input_layer, target=middle_layer, rule=PostPre, nu=(1e-4, 1e-2))
+        middle_output_conn = Connection(source=middle_layer, target=output_layer, rule=PostPre, nu=(1e-4, 1e-2))
+        
+        # Add layers and connections to the network
+        net.add_layer(input_layer, name="Input")
+        net.add_layer(middle_layer, name="Middle")
+        net.add_layer(output_layer, name="Output")
+        net.add_connection(input_middle_conn, source="Input", target="Middle")
+        net.add_connection(middle_output_conn, source="Middle", target="Output")
+
+        return net
     def set_learner(self):
         logger.debug(
             "Agent[{}] - Creating active model for the learner".format(self.rank)
@@ -163,9 +189,10 @@ class DQN(erl.ExaAgent):
             action = random.randrange(self.env.action_space.n)
             return action, 0
         else:
-            np_state = np.array(state).reshape(1, 1, len(state))
-            with tf.device(self.device):
-                act_values = self.target_model.predict(np_state)
+            # Use BindsNET's run function:
+            encoded_state = poisson(datum=state, time=25)  # Poisson encode the state, adjust time as needed
+            self.target_model.run(inputs={"Input": encoded_state}, time=25)  # Adjust time as needed
+            act_values = self.target_model.monitors["Output"].get("s").sum(dim=0)
             action = np.argmax(act_values[0])
             return action, 1
 
