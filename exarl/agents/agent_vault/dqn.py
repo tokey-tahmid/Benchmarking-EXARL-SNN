@@ -22,7 +22,8 @@ from tensorflow.compat.v1.keras.backend import set_session
 
 import bindsnet.network as network
 from bindsnet.network import Network
-from bindsnet.layers import Input, LIFNodes, Connection
+from bindsnet.network.nodes import Input, LIFNodes
+from bindsnet.network.topology import Connection
 from bindsnet.learning import PostPre
 from bindsnet.encoding import poisson
 
