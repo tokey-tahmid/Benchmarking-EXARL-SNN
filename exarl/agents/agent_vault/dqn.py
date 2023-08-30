@@ -191,6 +191,7 @@ class DQN(erl.ExaAgent):
             return action, 0
         else:
             # Use BindsNET's run function:
+            print(state)
             encoded_state = poisson(datum=state, time=25)  # Poisson encode the state, adjust time as needed
             self.target_model.run(inputs={"Input": encoded_state}, time=25)  # Adjust time as needed
             act_values = self.target_model.monitors["Output"].get("s").sum(dim=0)
