@@ -18,6 +18,7 @@
 #                             for the
 #                   UNITED STATES DEPARTMENT OF ENERGY
 #                    under Contract DE-AC05-76RL01830
+import site
 from tensorflow import keras
 import exarl as erl
 import exarl.utils.analyze_reward as ar

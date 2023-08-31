@@ -5,6 +5,7 @@ import json
 import csv
 import random
 import tensorflow as tf
+import torch
 import sys
 import gym
 import pickle
@@ -192,10 +193,15 @@ class DQN(erl.ExaAgent):
         else:
             # Use BindsNET's run function:
             print(state)
-            clipped_state = np.clip(state, 0, None)
-            encoded_state = poisson(datum=state, time=25)  # Poisson encode the state, adjust time as needed
-            self.target_model.run(inputs={"Input": encoded_state}, time=25)  # Adjust time as needed
-            act_values = self.target_model.monitors["Output"].get("s").sum(dim=0)
+            encoded_state = poisson(datum=torch.tensor(state, dtype=torch.float), time=25)
+            # Convert PyTorch tensor to NumPy array
+            encoded_state_np = encoded_state.detach().cpu().numpy()
+            # Get the output from the Keras model
+            # Reshape the input to have shape (batch_size, 1, 4)
+            reshaped_state = np.reshape(encoded_state_np, (-1, 1, 4))
+            # Get the output from the Keras model
+            output = self.target_model(reshaped_state)
+            act_values = tf.reduce_sum(output, axis=0)
             action = np.argmax(act_values[0])
             return action, 1
 
