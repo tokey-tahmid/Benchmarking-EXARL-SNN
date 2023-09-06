@@ -269,16 +269,16 @@ class ExaBooster_v1(gym.Env):
         if self.steps >= int(self.max_steps):
             done = True
 
-        self.diff += np.asscalar(abs(data_iminer - iminer))
-        self.data_total_reward += np.asscalar(data_reward)
-        self.total_reward += np.asscalar(reward)
-        self.total_iminer  += np.asscalar(abs(iminer))
-        self.data_total_iminer += np.asscalar(abs(data_iminer))
+        self.diff += abs(data_iminer - iminer).item()
+        self.data_total_reward += data_reward.item()
+        self.total_reward += reward.item()
+        self.total_iminer += abs(iminer).item()
+        self.data_total_iminer += abs(data_iminer).item()
 
         if self.do_render:
             self.render()
 
-        return self.state[0, :, -1:].flatten(), np.asscalar(reward), done, {}
+        return self.state[0, :, -1:].flatten(), reward.item(), done, {}
 
     def reset(self):
         self.episodes += 1

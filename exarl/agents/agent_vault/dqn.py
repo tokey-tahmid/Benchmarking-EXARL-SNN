@@ -42,7 +42,7 @@ class LossHistory(keras.callbacks.Callback):
 
     def on_batch_end(self, batch, logs={}):
         self.loss.append(logs.get('loss'))
-        
+
 class DQN(erl.ExaAgent):
     def __init__(self, env, is_learner):
 
@@ -153,16 +153,17 @@ class DQN(erl.ExaAgent):
             return build_model(self)
         else:
             sys.exit("Oops! That was not a valid model type. Try again...")
+
     def _build_snn_model(self):
         net = Network()
         input_layer = Input(n=self.env.observation_space.shape[0])  # Use the observation space size as input size
         middle_layer = LIFNodes(n=128)  # Example size, you can adjust
         output_layer = LIFNodes(n=self.env.action_space.n)  # Use the action space size as output size
-        
+
         # Connect layers
         input_middle_conn = Connection(source=input_layer, target=middle_layer, rule=PostPre, nu=(1e-4, 1e-2))
         middle_output_conn = Connection(source=middle_layer, target=output_layer, rule=PostPre, nu=(1e-4, 1e-2))
-        
+
         # Add layers and connections to the network
         net.add_layer(input_layer, name="Input")
         net.add_layer(middle_layer, name="Middle")
@@ -171,6 +172,7 @@ class DQN(erl.ExaAgent):
         net.add_connection(middle_output_conn, source="Middle", target="Output")
 
         return net
+
     def set_learner(self):
         logger.debug(
             "Agent[{}] - Creating active model for the learner".format(self.rank)
@@ -198,7 +200,9 @@ class DQN(erl.ExaAgent):
             encoded_state_np = encoded_state.detach().cpu().numpy()
             # Get the output from the Keras model
             # Reshape the input to have shape (batch_size, 1, 4)
-            reshaped_state = np.reshape(encoded_state_np, (-1, 1, 4))
+            print("Shape of encoded_state_np:", encoded_state_np.shape)
+
+            reshaped_state = np.reshape(encoded_state_np, (-1, 25, 5))
             # Get the output from the Keras model
             output = self.target_model(reshaped_state)
             act_values = tf.reduce_sum(output, axis=0)
