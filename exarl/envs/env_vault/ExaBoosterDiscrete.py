@@ -239,6 +239,7 @@ class ExaBooster_v1(gym.Env):
         # Update data state for rendering
         self.data_state = np.copy(self.X_train[self.batch_id + self.steps].reshape(1, self.nvariables, self.nsamples))
         data_iminer = self.scalers[1].inverse_transform(self.data_state[0][1][self.nsamples - 1].reshape(1, -1))
+        print(f"data_iminer value: {data_iminer}")
         data_reward = -abs(data_iminer)
         # data_reward = np.array(1. * math.exp(-5 * abs(np.asscalar(data_iminer))))
 
@@ -249,7 +250,7 @@ class ExaBooster_v1(gym.Env):
         logger.debug('norm iminer:{}'.format(iminer))
         iminer = self.scalers[1].inverse_transform(np.array([iminer]).reshape(1, -1))
         logger.debug('iminer:{}'.format(iminer))
-
+        print(f"iminer value: {iminer}")
         # Reward
         reward = -abs(iminer)
         # reward = np.array(-1 + 1. * math.exp(-5 * abs(np.asscalar(iminer))))
