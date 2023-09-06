@@ -23,6 +23,7 @@ from tensorflow.compat.v1.keras.backend import set_session
 
 import bindsnet.network as network
 from bindsnet.network import Network
+from bindsnet.network.monitors import Monitor
 from bindsnet.network.nodes import Input, LIFNodes
 from bindsnet.network.topology import Connection
 from bindsnet.learning import PostPre
@@ -110,18 +111,23 @@ class DQN(erl.ExaAgent):
         config.gpu_options.allow_growth = True
         sess = tf.compat.v1.Session(config=config)
         tf.compat.v1.keras.backend.set_session(sess)
+
         if self.is_learner:
             with tf.device(self.device):
                 self.model = self._build_model()
-                self.model.compile(loss=self.loss, optimizer=self.optimizer)
-                self.model.summary()
+                if self.model_type != 'SNN':  # Only compile if it's not an SNN model
+                    self.model.compile(loss=self.loss, optimizer=self.optimizer)
+                    self.model.summary()
         else:
             self.model = None
         with tf.device('/CPU:0'):
             self.target_model = self._build_model()
-            self.target_model._name = "target_model"
-            self.target_model.compile(loss=self.loss, optimizer=self.optimizer)
-            self.target_weights = self.target_model.get_weights()
+            if self.model_type != 'SNN':  # Only get weights if it's not an SNN model
+                self.target_weights = self.target_model.get_weights()
+            else:
+                # Handle weights for SNN model differently (if needed)
+                # For now, we'll just set it to None
+                self.target_weights = None
 
         if multiLearner and ExaComm.is_learner():
             hvd.init(comm=ExaComm.learner_comm.raw())
@@ -138,9 +144,10 @@ class DQN(erl.ExaAgent):
         logger.info('Number of available GPUs: {}'.format(ngpus))
         if ngpus > 0:
             gpu_id = self.rank % ngpus
-            return '/GPU:{}'.format(gpu_id)
+            return 'cuda:{}'.format(gpu_id)
         else:
-            return '/CPU:0'
+            return 'cpu'
+
 
     def _build_model(self):
         if self.model_type == 'SNN':
@@ -170,6 +177,11 @@ class DQN(erl.ExaAgent):
         net.add_layer(output_layer, name="Output")
         net.add_connection(input_middle_conn, source="Input", target="Middle")
         net.add_connection(middle_output_conn, source="Middle", target="Output")
+        # Create a monitor for the "Output" layer to monitor spikes ("s")
+        output_monitor = Monitor(obj=output_layer, state_vars=("s",), time=25, device=self.device)
+
+        # Add the monitor to the network
+        net.add_monitor(output_monitor, name="Output")
 
         return net
 
@@ -193,21 +205,25 @@ class DQN(erl.ExaAgent):
             action = random.randrange(self.env.action_space.n)
             return action, 0
         else:
-            # Use BindsNET's run function:
-            print(state)
-            encoded_state = poisson(datum=torch.tensor(state, dtype=torch.float), time=25)
-            # Convert PyTorch tensor to NumPy array
-            encoded_state_np = encoded_state.detach().cpu().numpy()
-            # Get the output from the Keras model
-            # Reshape the input to have shape (batch_size, 1, 4)
-            print("Shape of encoded_state_np:", encoded_state_np.shape)
+            if self.model_type == 'SNN':
+                # Handle action retrieval for SNN model using BindsNET
+                encoded_state = poisson(datum=torch.tensor(state, dtype=torch.float), time=25)  # Assuming 25 time steps
+                inputs = {"Input": encoded_state}
+                self.target_model.run(inputs=inputs, time=25)  # Assuming 25 time steps
+    
+                # Get output spikes
+                output_spikes = self.target_model.monitors["Output"].get("s")
+    
+                # Determine action based on the output spikes
+                action = torch.argmax(output_spikes.sum(dim=0)).item()
+    
+                # For simplicity, we'll just return the action and a dummy policy
+                return action, "SNN_policy"
 
-            reshaped_state = np.reshape(encoded_state_np, (-1, 25, 5))
-            # Get the output from the Keras model
-            output = self.target_model(reshaped_state)
-            act_values = tf.reduce_sum(output, axis=0)
-            action = np.argmax(act_values[0])
-            return action, 1
+            else:
+                # Original action selection code for non-SNN models:
+                act_values = self.model.predict(state)
+                return np.argmax(act_values[0]), 1
 
     @introspectTrace()
     def action(self, state):
@@ -217,21 +233,35 @@ class DQN(erl.ExaAgent):
         return action, policy
 
     @introspectTrace()
-    def calc_target_f(self, exp):
-        state, action, reward, next_state, done = exp
-        np_state = np.array(state, dtype=self.dtype_observation).reshape(1, 1, len(state))
-        np_next_state = np.array(next_state, dtype=self.dtype_observation).reshape(1, 1, len(next_state))
-        expectedQ = 0
-        if not done:
-            with tf.device(self.device):
-                expectedQ = self.gamma * np.amax(self.target_model.predict(np_next_state)[0])
-        target = reward + expectedQ
-        with tf.device(self.device):
-            target_f = self.target_model.predict(np_state)
-        # For handling continuous to discrete actions
-        action_idx = action if self.is_discrete else np.where(self.actions == action)[1]
-        target_f[0][action_idx] = target
-        return target_f[0]
+    def calc_target_f(self, data):
+        state, action, reward, next_state, done = data
+        if self.model_type == 'SNN':
+            # Handle target calculation for SNN model using BindsNET
+            encoded_next_state = poisson(datum=torch.tensor(next_state, dtype=torch.float), time=25)  # Assuming 25 time steps
+            inputs = {"Input": encoded_next_state}
+            self.target_model.run(inputs=inputs, time=25)  # Assuming 25 time steps
+    
+            # Get output spikes
+            output_spikes = self.target_model.monitors["Output"].get("s")
+    
+            # Convert the summed spikes into Q-values for each action
+            q_values = output_spikes.sum(dim=0).numpy()
+    
+            # Calculate the expected Q-values for each action
+            if done:
+                expectedQs = reward + np.zeros_like(q_values)
+            else:
+                expectedQs = reward + self.gamma * q_values
+        else:
+            # Original target calculation code for non-SNN models:
+            q_values = self.target_model.predict(next_state)[0]
+            if done:
+                expectedQs = reward + np.zeros_like(q_values)
+            else:
+                expectedQs = reward + self.gamma * np.amax(q_values)
+        return expectedQs
+
+
 
     def has_data(self):
         return (self.replay_buffer.get_buffer_length() >= self.batch_size)
@@ -261,20 +291,40 @@ class DQN(erl.ExaAgent):
         if self.is_learner:
             start_time = time.time()
             with tf.device(self.device):
-                if self.priority_scale > 0:
-                    if multiLearner:
-                        loss = self.training_step(batch)
-                    else:
-                        loss = LossHistory()
-                        sample_weight = batch[3] ** (1 - self.epsilon)
-                        self.model.fit(batch[0], batch[1], epochs=1, batch_size=1, verbose=0, callbacks=loss, sample_weight=sample_weight)
-                        loss = loss.loss
-                    ret = batch[2], loss
+                if self.model_type == 'SNN':
+                    # Handle SNN training using BindsNET
+                    encoded_states = poisson(datum=torch.tensor(batch[0], dtype=torch.float), time=25)
+                    total_reward = 0
+                    for state, expected_action in zip(encoded_states, batch[1]):
+                        inputs = {"Input": state}
+                        self.model.run(inputs=inputs, time=25)  # Assuming 25 time steps, adjust as needed
+
+                        # Get output spikes
+                        output_spikes = self.model.monitors["Output"].get("s")
+
+                        # Determine action based on the output spikes
+                        action = torch.argmax(output_spikes.sum(dim=0))
+
+                        # Calculate reward
+                        reward = 1 if action == expected_action else -1
+                        total_reward += reward
+
+                    loss = -total_reward  # Use negative reward as a proxy for loss
                 else:
-                    if multiLearner:
-                        loss = self.training_step(batch)
+                    if self.priority_scale > 0:
+                        if multiLearner:
+                            loss = self.training_step(batch)
+                        else:
+                            loss = LossHistory()
+                            sample_weight = batch[3] ** (1 - self.epsilon)
+                            self.model.fit(batch[0], batch[1], epochs=1, batch_size=1, verbose=0, callbacks=loss, sample_weight=sample_weight)
+                            loss = loss.loss
+                        ret = batch[2], loss
                     else:
-                        self.model.fit(batch[0], batch[1], epochs=1, verbose=0)
+                        if multiLearner:
+                            loss = self.training_step(batch)
+                        else:
+                            self.model.fit(batch[0], batch[1], epochs=1, verbose=0)
             end_time = time.time()
             self.training_time += (end_time - start_time)
             self.ntraining_time += 1
@@ -321,14 +371,34 @@ class DQN(erl.ExaAgent):
     def target_train(self):
         if self.is_learner:
             logger.info("Agent[%s] - update target weights." % str(self.rank))
-            with tf.device(self.device):
-                model_weights = self.model.get_weights()
-                target_weights = self.target_model.get_weights()
-            for i in range(len(target_weights)):
-                target_weights[i] = (
-                    self.tau * model_weights[i] + (1 - self.tau) * target_weights[i]
-                )
-            self.set_weights(target_weights)
+        
+            if self.model_type == 'SNN':
+                # Handle weight update for SNN model
+                input_middle_conn = self.model.connections[("Input", "Middle")]
+                middle_output_conn = self.model.connections[("Middle", "Output")]
+            
+                model_weights_input_middle = input_middle_conn.w
+                model_weights_middle_output = middle_output_conn.w
+            
+                target_weights_input_middle = self.target_model.connections[("Input", "Middle")].w
+                target_weights_middle_output = self.target_model.connections[("Middle", "Output")].w
+            
+                # Update weights
+                target_weights_input_middle.data = self.tau * model_weights_input_middle + (1 - self.tau) * target_weights_input_middle
+                target_weights_middle_output.data = self.tau * model_weights_middle_output + (1 - self.tau) * target_weights_middle_output
+            
+            else:
+                # Handle weight update for non-SNN models (e.g., MLP, LSTM)
+                with tf.device(self.device):
+                    model_weights = self.model.get_weights()
+                    target_weights = self.target_model.get_weights()
+                
+                for i in range(len(target_weights)):
+                    target_weights[i] = (
+                        self.tau * model_weights[i] + (1 - self.tau) * target_weights[i]
+                    )
+                self.set_weights(target_weights)
+            
         else:
             logger.warning(
                 "Weights will not be updated because this instance is not set to learn."
@@ -347,14 +417,19 @@ class DQN(erl.ExaAgent):
             layers[layerId].set_weights(pickle_list[layerId][1])
 
     def save(self, filename):
-        layers = self.target_model.layers
-        pickle_list = []
-        for layerId in range(len(layers)):
-            weigths = layers[layerId].get_weights()
-            pickle_list.append([layers[layerId].name, weigths])
+        if self.model_type == 'SNN':
+            # Save the entire SNN model using PyTorch's save method
+            torch.save(self.target_model.state_dict(), filename)
+        else:
+            # Original saving method for non-SNN models
+            layers = self.target_model.layers
+            pickle_list = []
+            for layerId in range(len(layers)):
+                weights = layers[layerId].get_weights()
+                pickle_list.append([layers[layerId].name, weights])
 
-        with open(filename, 'wb') as f:
-            pickle.dump(pickle_list, f, -1)
+            with open(filename, 'wb') as f:
+                pickle.dump(pickle_list, f, -1)
 
     def update(self):
         logger.info("Implement update method in dqn.py")

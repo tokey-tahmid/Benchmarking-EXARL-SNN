@@ -105,10 +105,13 @@ def save_reward_plot():
         figure.y_label = 'Rolling reward'
         figure.x_label = 'Episodes'
         figure.color_mode = 'byte'
+        print("X-axis range:", 0, len(df_merged['total_reward_roll']))
+        print("Y-axis range:", min(df_merged['total_reward_roll'].replace(np.nan, 0)), max(df_merged['total_reward_roll'].replace(np.nan, 0)))
+
         figure.set_x_limits(min_=0, max_=len(df_merged['total_reward_roll']))
         figure.set_y_limits(min_=min(df_merged['total_reward_roll'].replace(np.nan, 0)), max_=max(df_merged['total_reward_roll'].replace(np.nan, 0)))
         figure.plot(range(len(df_merged['total_reward_roll'])), df_merged['total_reward_roll'].replace(np.nan, 0), lc=200, label='rolling reward')
         # range(len(df_merged['time']))
         print(figure.show(legend=True))
-    except:
-        print("Terminal plot error: Check if you have plotille installed or for other errors.")
+    except Exception as e:
+        print(f"Terminal plot error: {e}")

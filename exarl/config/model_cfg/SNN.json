@@ -1,3 +1,15 @@
 {
-        "default_model_cfg": "You can specify your model config here!"
+        "dense": [64, 128],
+        "activation": "relu",
+        "optimizer": "adam",
+        "out_activation": "linear",
+        "loss": "mse",
+        "snn_layers": [56, 56, 56],
+        "snn_activation": "spike",
+        "time_steps": 100,
+        "learning_rate": 0.001,
+        "regularizer": [0.001, 0.001],
+        "clipnorm": 1.0,
+        "clipvalue": 0.5
 }
+    
