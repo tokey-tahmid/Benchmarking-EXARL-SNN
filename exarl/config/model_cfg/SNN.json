@@ -6,8 +6,8 @@
   "loss": "mse",
   "snn_layers": [56, 56, 56],
   "snn_activation": "spike",
-  "time_steps": 100,
-  "learning_rate": 0.005,
+  "time_steps": 125,
+  "learning_rate": 0.001,
   "regularizer": [0.001, 0.001],
   "clipnorm": 1.0,
   "clipvalue": 0.5
