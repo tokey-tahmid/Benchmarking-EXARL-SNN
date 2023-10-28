@@ -25,7 +25,6 @@ elapse = time.time() - start
 # Compute and print average time
 max_elapse = comm.reduce(elapse, op=MPI.MAX, root=0)
 elapse = comm.reduce(elapse, op=MPI.SUM, root=0)
-
 if rank == 0:
     print("Average elapsed time = ", elapse / size)
     print("Maximum elapsed time = ", max_elapse)

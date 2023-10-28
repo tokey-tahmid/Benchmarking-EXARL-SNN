@@ -66,9 +66,9 @@ class ExaCartpoleStatic(gym.Env):
 
         # if self.env_comm.rank == 0:
         #     print(PI)  # Print PI for verification
-        print("ACTION: ", type(action), action)
-        print("OBSERVATION: ", type(self.observation_space), next_state)
-        print("REWARD: ", type(reward), reward)
+        #print("ACTION: ", type(action), action)
+        #print("OBSERVATION: ", type(self.observation_space), next_state)
+        #print("REWARD: ", type(reward), reward)
         
         return next_state, reward, done, info
 

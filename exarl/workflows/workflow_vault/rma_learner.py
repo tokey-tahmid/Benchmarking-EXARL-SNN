@@ -61,6 +61,7 @@ class RMA(erl.ExaWorkflow):
         # target weights - This should be an unchecked buffer that will always succed a pop since weight need to be shared with everyone
         self.target_weight_data_structure = data_exchange_constructors[cd.lookup_params('target_weight_structure', default='buff_unchecked')]
 
+        print("Going into Batch Data")
         # Batch data
         self.batch_data_structure = data_exchange_constructors[cd.lookup_params('data_structure', default='buff_unchecked')]
         self.de_length = cd.lookup_params('data_structure_length', default=32)

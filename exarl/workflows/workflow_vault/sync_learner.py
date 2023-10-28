@@ -74,6 +74,7 @@ class SYNC(erl.ExaWorkflow):
 
             start_time_episode = time.time()
 
+
             while done != True:
                 # All env ranks
                 action = None
@@ -83,6 +84,7 @@ class SYNC(erl.ExaWorkflow):
                 # Broadcast episode count to all procs in env_comm
                 action = env_comm.bcast(action, root=0)
                 next_state, reward, done, _ = workflow.env.step(action)
+                #print("env rank * {} * total Reward is ==> {}".format(env_comm.rank, total_reward))
 
                 if ExaComm.env_comm.rank == 0:
                     total_reward += reward
@@ -117,6 +119,7 @@ class SYNC(erl.ExaWorkflow):
                     current_state = next_state
                     logger.info('Rank[%s] - Total Reward:%s' %
                                 (str(env_comm.rank), str(total_reward)))
+                    #print('Rank[%s] - Total Reward:%s' %(str(env_comm.rank), str(total_reward)))
                     steps += 1
                     if steps >= workflow.nsteps:
                         done = True

@@ -38,7 +38,7 @@ class ExaSimple(ExaComm):
 
     MPI = MPI
 
-    def __init__(self, comm=MPI.COMM_WORLD, procs_per_env=1, num_learners=1):
+    def __init__(self, comm=MPI.COMM_WORLD, procs_per_env=8, num_learners=8):
         """
         Parameters
         ----------
@@ -168,6 +168,7 @@ class ExaSimple(ExaComm):
         num_learners : int
             Number of processes per learner comm
         """
+        print("splitting in ExaSimple...")
         # Agent communicator
         agent_color = MPI.UNDEFINED
         if (self.rank < num_learners) or ((self.rank + procs_per_env - 1) % procs_per_env == 0):

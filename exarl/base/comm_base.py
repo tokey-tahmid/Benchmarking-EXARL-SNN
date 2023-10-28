@@ -18,13 +18,15 @@ class ExaComm(ABC):
     agent_comm = None
     env_comm = None
     learner_comm = None
-    num_learners = 1
+    num_learners = 8
 
     def __init__(self, comm, procs_per_env, num_learners):
         if ExaComm.global_comm is None:
             ExaComm.num_learners = num_learners
             ExaComm.global_comm = comm
+            #print("splitting comms...")
             ExaComm.agent_comm, ExaComm.env_comm, ExaComm.learner_comm = comm.split(procs_per_env, num_learners)
+            #print("comm sizes: ", ExaComm.agent_comm.size, ExaComm.env_comm.size, ExaComm.learner_comm.size)
 
     @abstractmethod
     def send(self, data, dest, pack=False):
@@ -56,6 +58,7 @@ class ExaComm(ABC):
 
     @abstractmethod
     def split(self, procs_per_env):
+        #print("is this method called?")
         pass
 
     def is_learner():

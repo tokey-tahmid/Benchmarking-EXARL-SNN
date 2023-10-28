@@ -1,0 +1,198 @@
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+[New Thread 0x7ffff7508640 (LWP 1518662)]
+[New Thread 0x7ffff7508640 (LWP 1518665)]
+[New Thread 0x7ffff6b25640 (LWP 1518666)]
+[New Thread 0x7ffff6b25640 (LWP 1518667)]
+[New Thread 0x7fffece9a640 (LWP 1518692)]
+[New Thread 0x7fffece9a640 (LWP 1518693)]
+[New Thread 0x7fffd9ffe640 (LWP 1518694)]
+[New Thread 0x7fffe1fff640 (LWP 1518695)]
+[Thread 0x7fffd9ffe640 (LWP 1518694) exited]
+[Thread 0x7fffe1fff640 (LWP 1518695) exited]
+[New Thread 0x7fffd9ffe640 (LWP 1518696)]
+[New Thread 0x7fffe1fff640 (LWP 1518697)]
+[Detaching after fork from child process 1518699]
+[Detaching after fork from child process 1518698]
+2023-10-17 23:10:48.478395: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-10-17 23:10:48.478768: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-10-17 23:10:54.777314: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2023-10-17 23:10:54.795024: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+[New Thread 0x7fffc9e08640 (LWP 1519141)]
+[New Thread 0x7fffd1e08640 (LWP 1519142)]
+2023-10-17 23:10:56.165152: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-17 23:10:56.165594: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-17 23:10:56.165610: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+2023-10-17 23:10:56.170850: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-17 23:10:56.171409: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-17 23:10:56.171424: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+[New Thread 0x7fff7688c640 (LWP 1519393)]
+[New Thread 0x7fff7688c640 (LWP 1519394)]
+[New Thread 0x7fff6bbff640 (LWP 1519396)]
+[New Thread 0x7fff6bbff640 (LWP 1519397)]
+[New Thread 0x7fff6b2d2640 (LWP 1519398)]
+[New Thread 0x7fff6b2d2640 (LWP 1519399)]
+[New Thread 0x7fff6aad1640 (LWP 1519400)]
+[New Thread 0x7fff6aad1640 (LWP 1519401)]
+[New Thread 0x7fff6a2d0640 (LWP 1519403)]
+[New Thread 0x7fff6a2d0640 (LWP 1519402)]
+[New Thread 0x7fff69acf640 (LWP 1519405)]
+[New Thread 0x7fff69acf640 (LWP 1519404)]
+[New Thread 0x7fff692ce640 (LWP 1519406)]
+[New Thread 0x7fff692ce640 (LWP 1519407)]
+[New Thread 0x7fff68acd640 (LWP 1519408)]
+[New Thread 0x7fff68acd640 (LWP 1519409)]
+[New Thread 0x7fff63fff640 (LWP 1519410)]
+[New Thread 0x7fff63fff640 (LWP 1519411)]
+[New Thread 0x7fff637fe640 (LWP 1519412)]
+[New Thread 0x7fff637fe640 (LWP 1519413)]
+Importing candle utils for keras
+Importing candle utils for keras
+Additional definitions built from json files
+Additional definitions built from json files
+Learner parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/learner_cfg.json
+Learner parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/learner_cfg.json
+Agent overwitten from command line:  DQN-v0
+Environment overwitten from command line:  ExaCartPoleStatic-v0
+Model overwitten from command line:  SNN
+Workflow overwitten from command line:  sync
+_________________________________________________________________
+Running - DQN-v0, SNN, ExaCartPoleStatic-v0 and sync
+_________________________________________________________________
+Agent overwitten from command line:  DQN-v0
+Environment overwitten from command line:  ExaCartPoleStatic-v0
+Model overwitten from command line:  SNN
+Workflow overwitten from command line:  sync
+_________________________________________________________________
+Running - DQN-v0, SNN, ExaCartPoleStatic-v0 and sync
+_________________________________________________________________
+Agent parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/agent_cfg/DQN-v0.json
+Agent parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/agent_cfg/DQN-v0.json
+Model parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/model_cfg/SNN.json
+Model parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/model_cfg/SNN.json
+Environment parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/env_cfg/ExaCartPoleStatic-v0.json
+Environment parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/env_cfg/ExaCartPoleStatic-v0.json
+Workflow parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/workflow_cfg/sync.json
+Workflow parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/workflow_cfg/sync.json
+
+
+splitting in ExaSimple...
+splitting in ExaSimple...
+/data/ttahmid/dsrl/EXARL/exarl/base
+Attempting to load exarl.agents.agent_vault with DQN
+/data/ttahmid/dsrl/EXARL/exarl/base
+Attempting to load exarl.agents.agent_vault with DQN
+agent_comm size:  2
+[New Thread 0x7ffeb22dd640 (LWP 1520016)]
+agent_comm size:  2
+[New Thread 0x7ffeb22dd640 (LWP 1520017)]
+Class SYNC learner
+Input_to_Middle.wmin cuda:0
+Input_to_Middle.wmax cuda:0
+Input_to_Middle.w cuda:0
+Middle_to_Output.wmin cuda:0
+Middle_to_Output.wmax cuda:0
+Middle_to_Output.w cuda:0
+Class SYNC learner
+/data/ttahmid/anaconda3/envs/dsrl/lib/python3.8/site-packages/gym/logger.py:30: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  warnings.warn(colorize('%s: %s'%('WARN', msg % args), 'yellow'))
+done?
+done?
+Average elapsed time =  0.013009309768676758
+Maximum elapsed time =  0.020955562591552734
+Done!
+(Rolling reward) ^
+22.0400000 |
+21.3053333 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡼[0m[38;5;200m⡀[0m⠀⠀⠀⠀⠀⠀⠀
+20.5706667 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⢀[0m⠀[38;5;200m⢀[0m⠀[38;5;200m⢀[0m[38;5;200m⠇[0m[38;5;200m⢇[0m⠀⠀⠀⠀⠀⠀⠀
+19.8360000 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡎[0m[38;5;200m⠑[0m[38;5;200m⠁[0m[38;5;200m⠉[0m[38;5;200m⠙[0m⠀⠀[38;5;200m⠙[0m[38;5;200m⠤[0m[38;5;200m⡠[0m[38;5;200m⢤[0m[38;5;200m⠓[0m[38;5;200m⡄[0m⠀
+19.1013333 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡖[0m[38;5;200m⠚[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⠱[0m[38;5;200m⡀[0m
+18.3666667 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⢸[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⠈[0m
+17.6320000 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡰[0m[38;5;200m⠁[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+16.8973333 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⢀[0m[38;5;200m⠔[0m[38;5;200m⠁[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+16.1626667 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡠[0m[38;5;200m⠤[0m[38;5;200m⠎[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+15.4280000 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡔[0m[38;5;200m⠁[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+14.6933333 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡔[0m[38;5;200m⠲[0m[38;5;200m⠉[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+13.9586667 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡇[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+13.2240000 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⣀[0m[38;5;200m⡠[0m[38;5;200m⠤[0m[38;5;200m⢤[0m⠀[38;5;200m⢀[0m[38;5;200m⡀[0m⠀[38;5;200m⢀[0m[38;5;200m⣸[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+12.4893333 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⠔[0m[38;5;200m⠊[0m[38;5;200m⠉[0m⠀⠀⠀⠀[38;5;200m⠉[0m[38;5;200m⠁[0m[38;5;200m⠈[0m[38;5;200m⠉[0m[38;5;200m⠃[0m[38;5;200m⠈[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+11.7546667 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⢰[0m[38;5;200m⠉[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+11.0200000 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⢸[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+10.2853333 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⢸[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+9.55066667 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⢸[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+8.81600000 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡜[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+8.08133333 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡇[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+7.34666667 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡇[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+6.61200000 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡇[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+5.87733333 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡇[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+5.14266667 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡇[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+4.40800000 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡇[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+3.67333333 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⡇[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+2.93866667 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⢀[0m[38;5;200m⠇[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+2.20400000 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⢸[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+1.46933333 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⢸[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+0.73466667 | ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[38;5;200m⢸[0m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+         0 | [38;5;200m⣇[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣀[0m[38;5;200m⣸[0m⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀
+-----------|-|---------|---------|---------|---------|---------|---------|-> (Episodes)
+           | 0         13.833333 27.666667 41.500000 55.333333 69.166667 83       
+
+Legend:
+-------
+[38;5;200m⠤⠤ rolling reward[0m
+/data/ttahmid/anaconda3/envs/dsrl/lib/python3.8/site-packages/gym/logger.py:30: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  warnings.warn(colorize('%s: %s'%('WARN', msg % args), 'yellow'))
+[Thread 0x7ffff6b25640 (LWP 1518667) exited]
+[Thread 0x7ffff6b25640 (LWP 1518666) exited]
+[Thread 0x7ffff7508640 (LWP 1518665) exited]
+[Thread 0x7ffff7508640 (LWP 1518662) exited]
+[Thread 0x7fffc9e08640 (LWP 1519141) exited]
+[Thread 0x7fff7688c640 (LWP 1519394) exited]
+[Thread 0x7fff637fe640 (LWP 1519413) exited]
+[Thread 0x7fff63fff640 (LWP 1519411) exited]
+[Thread 0x7fff68acd640 (LWP 1519409) exited]
+[Thread 0x7fff692ce640 (LWP 1519407) exited]
+[Thread 0x7fff69acf640 (LWP 1519405) exited]
+[Thread 0x7fff6a2d0640 (LWP 1519403) exited]
+[Thread 0x7fff6aad1640 (LWP 1519400) exited]
+[Thread 0x7fff6b2d2640 (LWP 1519398) exited]
+[Thread 0x7fff6bbff640 (LWP 1519396) exited]
+[Thread 0x7fffe1fff640 (LWP 1518697) exited]
+[Thread 0x7fffece9a640 (LWP 1518693) exited]
+[Thread 0x7ffff7cb6740 (LWP 1518646) exited]
+[Thread 0x7fffd1e08640 (LWP 1519142) exited]
+[Thread 0x7fff7688c640 (LWP 1519393) exited]
+[Thread 0x7fff637fe640 (LWP 1519412) exited]
+[Thread 0x7fff63fff640 (LWP 1519410) exited]
+[Thread 0x7fff68acd640 (LWP 1519408) exited]
+[Thread 0x7fff692ce640 (LWP 1519406) exited]
+[Thread 0x7fff69acf640 (LWP 1519404) exited]
+[Thread 0x7fff6a2d0640 (LWP 1519402) exited]
+[Thread 0x7fff6aad1640 (LWP 1519401) exited]
+[Thread 0x7fff6b2d2640 (LWP 1519399) exited]
+[Thread 0x7fff6bbff640 (LWP 1519397) exited]
+[Thread 0x7fffd9ffe640 (LWP 1518696) exited]
+[Thread 0x7fffece9a640 (LWP 1518692) exited]
+[Thread 0x7ffff7cb6740 (LWP 1518645) exited]
+[Thread 0x7ffeb22dd640 (LWP 1520016) exited]
+[New process 1518646]
+[Inferior 1 (process 1518646) exited normally]
+No stack.
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+No stack.
+[Thread 0x7ffeb22dd640 (LWP 1520017) exited]
+[New process 1518645]
+[Inferior 1 (process 1518645) exited normally]
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[36506,1],1]
+  Exit code:    1
+--------------------------------------------------------------------------

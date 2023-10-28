@@ -35,6 +35,8 @@ class ExaData(ABC):
 
     # TODO: Think about low and high as parameters
     def get_data(self, learner_counter, low, high):
+        if low >= high:
+            raise ValueError(f"Invalid values: low={low}, high={high}. 'low' should be less than 'high'.")
         actor_idx = np.random.randint(low=low, high=high, size=1)[0]
         batch_data = self.pop(actor_idx)
         if batch_data:

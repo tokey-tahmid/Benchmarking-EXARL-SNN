@@ -30,31 +30,22 @@ logger = log.setup_logger(__name__, cd.lookup_params('log_level', [3, 3]))
 
 
 def read_data(filename, rank):
-    """The function reads csv-based learning data from the given log file into a pandas frame for use in plotting and result analysis.
+    """The function reads csv-based learning data from the given log file into a pandas frame for use in plotting and result analysis."""
+    try:
+        frame = pd.read_csv(filename, sep=' ', header=None,
+                            names=['time', 'current_state', 'action', 'reward', 'next_state', 'total_reward', 'done',
+                                   'episode', 'step', 'policy_type', 'epsilon'])
+        del frame['current_state']
+        del frame['next_state']
+        frame['time'] = pd.to_datetime(frame['time'], unit='ns')
+        frame = frame[frame.done == True]
+        frame = frame.reset_index()
+        frame['rank'] = int(rank)
+        return frame
+    except pd.errors.ParserError as e:
+        logger.error(f"Error reading file {filename}: {e}")
+        return pd.DataFrame()  # Return an empty DataFrame
 
-    Parameters
-    ----------
-    filename : string
-        csv file of log data from EXARL
-    rank : integer
-        MPI rank number
-
-    Returns
-    -------
-    pandas.DataFrame
-        contains data extracted from the csv-based EXARL learning log file,
-        except for current_state and next_state fields, and with the addition of a rank field.
-    """
-    frame = pd.read_csv(filename, sep=' ', header=None,
-                        names=['time', 'current_state', 'action', 'reward', 'next_state', 'total_reward', 'done',
-                               'episode', 'step', 'policy_type', 'epsilon'])
-    del frame['current_state']
-    del frame['next_state']
-    frame['time'] = pd.to_datetime(frame['time'], unit='ns')
-    frame = frame[frame.done == True]
-    frame = frame.reset_index()
-    frame['rank'] = int(rank)
-    return frame
 
 def save_reward_plot():
     """Creates and saves a Rolling Total Reward (y-axis) by Relative Time (x-axis) plot based on .log files written by EXARL for each rank.
@@ -95,6 +86,7 @@ def save_reward_plot():
     if not os.path.exists(results_dir + '/Plots'):
         os.makedirs(results_dir + '/Plots')
     fig.savefig(results_dir + '/Plots/Reward_plot.png')
+    print("Done!")
 
     # Terminal plot
     try:
@@ -105,13 +97,10 @@ def save_reward_plot():
         figure.y_label = 'Rolling reward'
         figure.x_label = 'Episodes'
         figure.color_mode = 'byte'
-        print("X-axis range:", 0, len(df_merged['total_reward_roll']))
-        print("Y-axis range:", min(df_merged['total_reward_roll'].replace(np.nan, 0)), max(df_merged['total_reward_roll'].replace(np.nan, 0)))
-
         figure.set_x_limits(min_=0, max_=len(df_merged['total_reward_roll']))
         figure.set_y_limits(min_=min(df_merged['total_reward_roll'].replace(np.nan, 0)), max_=max(df_merged['total_reward_roll'].replace(np.nan, 0)))
         figure.plot(range(len(df_merged['total_reward_roll'])), df_merged['total_reward_roll'].replace(np.nan, 0), lc=200, label='rolling reward')
         # range(len(df_merged['time']))
         print(figure.show(legend=True))
-    except Exception as e:
-        print(f"Terminal plot error: {e}")
+    except:
+        print("Terminal plot error: Check if you have plotille installed or for other errors.")

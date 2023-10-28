@@ -58,6 +58,7 @@ class DQN(erl.ExaAgent):
         self.agent_comm = ExaComm.agent_comm
         self.rank = self.agent_comm.rank
         self.size = self.agent_comm.size
+        print("agent_comm size: ", self.size)
         self.training_time = 0
         self.ntraining_time = 0
         self.dataprep_time = 0
@@ -92,7 +93,10 @@ class DQN(erl.ExaAgent):
         self.dtype_action = np.array(self.env.action_space.sample()).dtype
         self.dtype_observation = self.env.observation_space.sample().dtype
         
-        self.device = torch.device("cpu")
+        self.device = torch.device(f"cuda:{self.rank % torch.cuda.device_count()}" if torch.cuda.is_available() else "cpu")
+        #print("Is CUDA available?", torch.cuda.is_available())
+        #print("Current device:", self.device)
+        #print("Number of GPUs available:", torch.cuda.device_count())
 
         if self.is_learner:
             self.model = self._build_model().to(self.device)
@@ -100,7 +104,9 @@ class DQN(erl.ExaAgent):
             for param in self.model.parameters():
                 param.requires_grad = True
             for name, param in self.model.named_parameters():
-                print(name, param.requires_grad)
+                #print(name, param.requires_grad)
+                print(name, param.device)
+                #print("Model device:", next(self.model.parameters()).device)
             self.loss_fn = nn.MSELoss()
             self.opt = optim.Adam(self.model.parameters(), lr=self.learning_rate)
 
@@ -113,6 +119,7 @@ class DQN(erl.ExaAgent):
             self.first_batch = 1
             self.loss_fn = cd.candle.build_loss(self.loss, cd.kerasDefaults, reduction='none')
             self.opt = cd.candle.build_optimizer(self.optimizer, self.learning_rate * hvd.size(), cd.kerasDefaults)
+            print("learner_comm size", ExaComm.learner_comm.size)
         self.maxlen = cd.run_params['mem_length']
         self.replay_buffer = PrioritizedReplayBuffer(maxlen=self.maxlen)
 
@@ -166,7 +173,10 @@ class DQN(erl.ExaAgent):
             if self.model_type == 'SNN':
                 encoded_state = poisson(datum=torch.tensor(state, dtype=torch.float).to(self.device), time=125)
                 self.target_model.to(self.device)
+                encoded_state = encoded_state.to(self.device)
+                #print("Current device in get_action:", self.device)
                 inputs = {"Input": encoded_state}
+                #print("Current device of inputs:", self.device)
                 self.target_model.run(inputs=inputs, time=125)
 
                 output_spikes = self.target_model.monitors["Output"].get("s").to(self.device)
@@ -187,12 +197,14 @@ class DQN(erl.ExaAgent):
         if self.model_type == 'SNN':
 
             encoded_next_state = poisson(datum=torch.tensor(next_state, dtype=torch.float).to(self.device), time=125)
-            self.target_model.to(self.device) 
+            self.target_model.to(self.device)
+            #print("Current device:", self.device)
+            encoded_next_state = encoded_next_state.to(self.device) 
             inputs = {"Input": encoded_next_state}
             self.target_model.run(inputs=inputs, time=125)
 
             output_spikes = self.target_model.monitors["Output"].get("s").to(self.device)
-            q_values = output_spikes.sum(dim=0).numpy()
+            q_values = output_spikes.sum(dim=0).cpu().numpy()
     
             if done:
                 expectedQs = reward + np.zeros_like(q_values)
@@ -234,8 +246,10 @@ class DQN(erl.ExaAgent):
                 if self.model_type == 'SNN':
 
                     encoded_state = poisson(datum=torch.tensor(batch[0], dtype=torch.float).to(self.device), time=125)
+                    encoded_state = encoded_state.to(self.device)
                     inputs = {"Input": encoded_state}
                     self.model.to(self.device)
+                    #print("Current device:", self.device)
                     self.model.run(inputs=inputs, time=125)
                     output_spikes = self.target_model.monitors["Output"].get("s").to(self.device)
                     if output_spikes.nelement() == 0:
@@ -266,6 +280,7 @@ class DQN(erl.ExaAgent):
     def training_step(self, batch):
         encoded_state = poisson(datum=torch.tensor(batch[0], dtype=torch.float).to(self.device), time=125)
         encoded_state = encoded_state.to(dtype=torch.float32)
+        encoded_state = encoded_state.to(self.device)
         print(encoded_state.dtype)
 
         inputs = {"Input": encoded_state}
@@ -280,13 +295,20 @@ class DQN(erl.ExaAgent):
         self.replay_buffer.set_priorities(indices, loss)
 
     def get_weights(self):
-        logger.debug("Agent[%s] - get target weight." % str(self.rank))
-        return self.target_model.get_weights()
+        if self.model_type == 'SNN':
+            return self.target_model.state_dict()
+        else:
+            logger.debug("Agent[%s] - get target weight." % str(self.rank))
+            return self.target_model.get_weights()
 
     def set_weights(self, weights):
         logger.info("Agent[%s] - set target weight." % str(self.rank))
-        logger.debug("Agent[%s] - set target weight: %s" % (str(self.rank), weights))
-        self.target_model.set_weights(weights)
+        if self.model_type == 'SNN':
+            self.target_model.load_state_dict(weights)
+        else:
+            logger.debug("Agent[%s] - set target weight: %s" % (str(self.rank), weights))
+            self.target_model.set_weights(weights)
+
 
     @introspectTrace()
     def target_train(self):

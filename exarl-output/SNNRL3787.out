@@ -1,0 +1,263 @@
+Loading cuda/11.8.0/gcc-11.3.1-vltbfy
+  Loading requirement: libiconv/1.17/gcc-11.3.1-h5tewp
+    xz/5.4.1/gcc-11.3.1-ybherp zlib/1.2.13/gcc-11.3.1-uhneca
+    libxml2/2.10.3/gcc-11.3.1-jijod2
+2023-10-20 04:55:24.848065: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-10-20 04:55:24.848066: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-10-20 04:55:24.848065: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-10-20 04:55:24.848065: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-10-20 04:55:24.869680: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-10-20 04:55:24.869680: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-10-20 04:55:24.869680: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-10-20 04:55:24.869679: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-10-20 04:55:25.217479: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2023-10-20 04:55:25.217432: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2023-10-20 04:55:25.217613: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2023-10-20 04:55:25.217711: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2023-10-20 04:55:25.332323: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2023-10-20 04:55:25.332380: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2023-10-20 04:55:25.332969: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2023-10-20 04:55:25.334846: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2023-10-20 04:55:26.199711: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.200111: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.200128: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+2023-10-20 04:55:26.221371: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.221734: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.221749: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+2023-10-20 04:55:26.239207: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.239564: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.239578: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+2023-10-20 04:55:26.246398: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.246738: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.246755: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+2023-10-20 04:55:26.481115: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.481564: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.481581: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+2023-10-20 04:55:26.487230: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.487688: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.487711: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+2023-10-20 04:55:26.504208: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.504601: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.504617: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+2023-10-20 04:55:26.591647: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.592046: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3::/home/ttahmid/openmpi4/lib/:/data/ttahmid/anaconda3/lib64:/data/ttahmid/anaconda3/lib:/data/ttahmid/anaconda3:::/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/:/data/ttahmid/anaconda3/mkspecs/features/unix/
+2023-10-20 04:55:26.592067: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+Importing candle utils for keras
+Importing candle utils for keras
+Importing candle utils for keras
+Importing candle utils for keras
+Additional definitions built from json files
+Additional definitions built from json files
+Learner parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/learner_cfg.json
+Learner parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/learner_cfg.json
+Additional definitions built from json files
+Learner parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/learner_cfg.json
+Agent overwitten from command line:  DQN-v0
+Environment overwitten from command line:  ExaCartPoleStatic-v0
+Model overwitten from command line:  SNN
+Workflow overwitten from command line:  sync
+_________________________________________________________________
+Running - DQN-v0, SNN, ExaCartPoleStatic-v0 and sync
+_________________________________________________________________
+Agent parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/agent_cfg/DQN-v0.json
+Agent overwitten from command line:  DQN-v0
+Environment overwitten from command line:  ExaCartPoleStatic-v0
+Model overwitten from command line:  SNN
+Workflow overwitten from command line:  sync
+_________________________________________________________________
+Running - DQN-v0, SNN, ExaCartPoleStatic-v0 and sync
+_________________________________________________________________
+Agent parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/agent_cfg/DQN-v0.json
+Model parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/model_cfg/SNN.json
+Model parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/model_cfg/SNN.json
+Agent overwitten from command line:  DQN-v0
+Environment overwitten from command line:  ExaCartPoleStatic-v0
+Model overwitten from command line:  SNN
+Workflow overwitten from command line:  sync
+_________________________________________________________________
+Running - DQN-v0, SNN, ExaCartPoleStatic-v0 and sync
+Environment parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/env_cfg/ExaCartPoleStatic-v0.json
+Environment parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/env_cfg/ExaCartPoleStatic-v0.json
+_________________________________________________________________
+Agent parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/agent_cfg/DQN-v0.json
+Workflow parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/workflow_cfg/sync.json
+Workflow parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/workflow_cfg/sync.json
+Model parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/model_cfg/SNN.json
+Environment parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/env_cfg/ExaCartPoleStatic-v0.json
+Workflow parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/workflow_cfg/sync.json
+Additional definitions built from json files
+Learner parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/learner_cfg.json
+Agent overwitten from command line:  DQN-v0
+Environment overwitten from command line:  ExaCartPoleStatic-v0
+Model overwitten from command line:  SNN
+Workflow overwitten from command line:  sync
+_________________________________________________________________
+Running - DQN-v0, SNN, ExaCartPoleStatic-v0 and sync
+_________________________________________________________________
+Agent parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/agent_cfg/DQN-v0.json
+Model parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/model_cfg/SNN.json
+Environment parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/env_cfg/ExaCartPoleStatic-v0.json
+Workflow parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/workflow_cfg/sync.json
+
+
+
+
+splitting in ExaSimple...
+splitting in ExaSimple...
+splitting in ExaSimple...
+splitting in ExaSimple...
+Importing candle utils for keras
+Importing candle utils for keras
+Additional definitions built from json files
+Learner parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/learner_cfg.json
+Agent overwitten from command line:  DQN-v0
+Environment overwitten from command line:  ExaCartPoleStatic-v0
+Model overwitten from command line:  SNN
+Workflow overwitten from command line:  sync
+_________________________________________________________________
+Running - DQN-v0, SNN, ExaCartPoleStatic-v0 and sync
+_________________________________________________________________
+Agent parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/agent_cfg/DQN-v0.json
+Model parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/model_cfg/SNN.json
+Environment parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/env_cfg/ExaCartPoleStatic-v0.json
+Workflow parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/workflow_cfg/sync.json
+Additional definitions built from json files
+Learner parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/learner_cfg.json
+Agent overwitten from command line:  DQN-v0
+Environment overwitten from command line:  ExaCartPoleStatic-v0
+Model overwitten from command line:  SNN
+Workflow overwitten from command line:  sync
+_________________________________________________________________
+Running - DQN-v0, SNN, ExaCartPoleStatic-v0 and sync
+_________________________________________________________________
+Agent parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/agent_cfg/DQN-v0.json
+Model parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/model_cfg/SNN.json
+Environment parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/env_cfg/ExaCartPoleStatic-v0.json
+Workflow parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/workflow_cfg/sync.json
+
+
+splitting in ExaSimple...
+splitting in ExaSimple...
+Importing candle utils for keras
+Additional definitions built from json files
+Learner parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/learner_cfg.json
+Agent overwitten from command line:  DQN-v0
+Environment overwitten from command line:  ExaCartPoleStatic-v0
+Model overwitten from command line:  SNN
+Workflow overwitten from command line:  sync
+_________________________________________________________________
+Running - DQN-v0, SNN, ExaCartPoleStatic-v0 and sync
+_________________________________________________________________
+Agent parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/agent_cfg/DQN-v0.json
+Model parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/model_cfg/SNN.json
+Environment parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/env_cfg/ExaCartPoleStatic-v0.json
+Workflow parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/workflow_cfg/sync.json
+
+splitting in ExaSimple...
+Importing candle utils for keras
+Additional definitions built from json files
+Learner parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/learner_cfg.json
+Agent overwitten from command line:  DQN-v0
+Environment overwitten from command line:  ExaCartPoleStatic-v0
+Model overwitten from command line:  SNN
+Workflow overwitten from command line:  sync
+_________________________________________________________________
+Running - DQN-v0, SNN, ExaCartPoleStatic-v0 and sync
+_________________________________________________________________
+Agent parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/agent_cfg/DQN-v0.json
+Model parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/model_cfg/SNN.json
+Environment parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/env_cfg/ExaCartPoleStatic-v0.json
+Workflow parameters from  /data/ttahmid/dsrl/EXARL/exarl/config/workflow_cfg/sync.json
+
+splitting in ExaSimple...
+/data/ttahmid/dsrl/EXARL/exarl/base
+/data/ttahmid/dsrl/EXARL/exarl/base
+/data/ttahmid/dsrl/EXARL/exarl/base
+/data/ttahmid/dsrl/EXARL/exarl/base
+Attempting to load exarl.agents.agent_vault with DQN
+Class SYNC learner
+Class SYNC learner
+Class SYNC learner
+/data/ttahmid/dsrl/EXARL/exarl/base
+/data/ttahmid/dsrl/EXARL/exarl/base
+Attempting to load exarl.agents.agent_vault with DQN
+/data/ttahmid/dsrl/EXARL/exarl/base
+/data/ttahmid/dsrl/EXARL/exarl/base
+Class SYNC learner
+Class SYNC learner
+Class SYNC learner
+agent_comm size:  2
+Class SYNC learner
+agent_comm size:  2
+Input_to_Middle.wmin cuda:0
+Input_to_Middle.wmax cuda:0
+Input_to_Middle.w cuda:0
+Middle_to_Output.wmin cuda:0
+Middle_to_Output.wmax cuda:0
+Middle_to_Output.w cuda:0
+Class SYNC learner
+/data/ttahmid/anaconda3/envs/dsrl/lib/python3.8/site-packages/gym/logger.py:30: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  warnings.warn(colorize('%s: %s'%('WARN', msg % args), 'yellow'))
+Traceback (most recent call last):
+  File "/data/ttahmid/dsrl/EXARL/exarl/driver/driver.py", line 22, in <module>
+    exa_learner.run()
+  File "/data/ttahmid/dsrl/EXARL/exarl/base/learner_base.py", line 134, in run
+    self.workflow.run(self)
+  File "/data/ttahmid/dsrl/EXARL/exarl/utils/profile.py", line 77, in wrapper_profile
+    return func(*args, **kwargs)
+  File "/data/ttahmid/dsrl/EXARL/exarl/workflows/workflow_vault/sync_learner.py", line 97, in run
+    batch_data = next(workflow.agent.generate_data())
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/dqn.py", line 230, in generate_data
+    batch_target = list(map(self.calc_target_f, minibatch))
+  File "/data/ttahmid/dsrl/EXARL/exarl/utils/introspect.py", line 283, in wrapper
+    result = func(*args, **kwargs)
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/dqn.py", line 204, in calc_target_f
+    self.target_model.run(inputs=inputs, time=125)
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/bindsnet/bindsnet/network/network.py", line 441, in run
+    self.connections[c].update(
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/bindsnet/bindsnet/network/topology.py", line 242, in update
+    super().update(**kwargs)
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/bindsnet/bindsnet/network/topology.py", line 114, in update
+    self.update_rule.update(**kwargs)
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/bindsnet/bindsnet/learning/learning.py", line 144, in update
+    super().update()
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/bindsnet/bindsnet/learning/learning.py", line 95, in update
+    self.connection.w = nn.Parameter(self.connection.w * self.weight_decay)
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.00 MiB (GPU 1; 31.74 GiB total capacity; 31.36 GiB already allocated; 1.38 MiB free; 31.37 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+/data/ttahmid/anaconda3/envs/dsrl/lib/python3.8/site-packages/gym/logger.py:30: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  warnings.warn(colorize('%s: %s'%('WARN', msg % args), 'yellow'))
+Traceback (most recent call last):
+  File "/data/ttahmid/dsrl/EXARL/exarl/driver/driver.py", line 22, in <module>
+    exa_learner.run()
+  File "/data/ttahmid/dsrl/EXARL/exarl/base/learner_base.py", line 134, in run
+    self.workflow.run(self)
+  File "/data/ttahmid/dsrl/EXARL/exarl/utils/profile.py", line 77, in wrapper_profile
+    return func(*args, **kwargs)
+  File "/data/ttahmid/dsrl/EXARL/exarl/workflows/workflow_vault/sync_learner.py", line 97, in run
+    batch_data = next(workflow.agent.generate_data())
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/dqn.py", line 230, in generate_data
+    batch_target = list(map(self.calc_target_f, minibatch))
+  File "/data/ttahmid/dsrl/EXARL/exarl/utils/introspect.py", line 283, in wrapper
+    result = func(*args, **kwargs)
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/dqn.py", line 204, in calc_target_f
+    self.target_model.run(inputs=inputs, time=125)
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/bindsnet/bindsnet/network/network.py", line 441, in run
+    self.connections[c].update(
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/bindsnet/bindsnet/network/topology.py", line 242, in update
+    super().update(**kwargs)
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/bindsnet/bindsnet/network/topology.py", line 114, in update
+    self.update_rule.update(**kwargs)
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/bindsnet/bindsnet/learning/learning.py", line 144, in update
+    super().update()
+  File "/data/ttahmid/dsrl/EXARL/exarl/agents/agent_vault/bindsnet/bindsnet/learning/learning.py", line 99, in update
+    (self.connection.wmin != -np.inf).any()
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.00 MiB (GPU 0; 31.74 GiB total capacity; 31.36 GiB already allocated; 1.38 MiB free; 31.37 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+slurmstepd: error: *** JOB 3787 ON leconte CANCELLED AT 2023-10-26T14:13:33 ***
