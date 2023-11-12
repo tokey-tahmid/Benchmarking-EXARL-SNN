@@ -126,4 +126,4 @@ RUN rm -rf $HOME/.cache/pypoetry/artifacts
 COPY . .
 
 # Final setup
-CMD ["python", "your_script.py"]
+CMD ["python", "/nfs/home/ttahmid/Benchmarking-EXARL-SNN/exarl/agents/agent_vault/dqn.py"]
