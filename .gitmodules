@@ -1,0 +1,3 @@
+[submodule "external/bindsnet"]
+	path = external/bindsnet
+	url = https://github.com/tokey-tahmid/bindsnet.git

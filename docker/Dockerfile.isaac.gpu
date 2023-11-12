@@ -1,0 +1,129 @@
+# Base image with NVIDIA CUDA and TensorFlow
+FROM nvcr.io/nvidia/tensorflow:20.10-tf2-py3
+
+# Set environment variables
+ENV TERM=xterm
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYENV_ROOT=$HOME/.pyenv
+ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
+ENV POETRY_NO_INTERACTION=1
+ENV PYTHONUNBUFFERED=1
+ENV PIP_NO_CACHE_DIR=off
+ENV PIP_DISABLE_PIP_VERSION_CHECK=on
+ENV PIP_DEFAULT_TIMEOUT=100
+ENV POETRY_HOME="/opt/poetry"
+ENV VENV_PATH="/opt/pysetup/.venv"
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+ENV POETRY_VERSION=1.1.8
+
+WORKDIR /tmp
+
+# Install dependencies
+RUN apt-get update && apt-get upgrade --yes && apt-get install --yes \
+    gcc \
+    g++ \
+    gfortran \
+    gzip \
+    libfabric-dev \
+    libibverbs-dev \
+    make \
+    libslurm-dev \
+    tar \
+    wget \
+    cmake \
+    patch \
+    binutils-dev \
+    bzip2 \
+    curl \
+    git \
+    less \
+    vim \
+    xz-utils \
+    hwloc \
+    libhwloc-dev \
+    libdwarf-dev \
+    libpapi-dev \
+    papi-tools \
+    libgeos-dev \
+    liblzma-dev \
+    libssl-dev \
+    libbz2-dev \
+    python3.8-dev \
+    python-dev \
+    libffi-dev \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libblas-dev \
+    libatlas-base-dev \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install pyenv
+RUN curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+RUN echo 'eval "$(pyenv init -)"' >> $HOME/.bashrc
+
+# Install Python version specified in the .python-version file
+COPY .python-version .
+RUN PYTHON_VERSION=$(cat .python-version) pyenv install $PYTHON_VERSION && pyenv global $PYTHON_VERSION && pyenv rehash
+
+# Install poetry
+RUN mkdir $HOME/opt/ && \
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - &&\
+    poetry config virtualenvs.create false
+
+# Install MPI
+RUN wget https://www.mpich.org/static/downloads/3.3.2/mpich-3.3.2.tar.gz && \
+    tar xzf mpich-3.3.2.tar.gz && \
+    cd mpich-3.3.2 && \
+    ./configure --prefix=/usr/local/mpich --enable-fortran --with-libfabric=/usr --with-slurm=/usr --with-device=ch4:ofi && \
+    make -j4 V=1 && \
+    make install && \
+    rm -rf /tmp/mpich*
+
+# Set PATH for MPI
+ENV PATH="/usr/local/mpich/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/usr/local/mpich/lib:${LD_LIBRARY_PATH}"
+
+# Install Python packages
+RUN pip install --no-cache-dir --upgrade pip setuptools
+RUN pip install --no-cache-dir --use-feature=2020-resolver wheel
+RUN MPICC=$(which mpicc) pip install -v --no-binary mpi4py mpi4py
+RUN pip install --no-cache-dir --use-feature=2020-resolver \
+    ase \
+    asteval \
+    cycler \
+    gym \
+    keras \
+    kiwisolver \
+    Lmfit \
+    matplotlib \
+    numba \
+    pandas \
+    pillow \
+    plotly \
+    seaborn \
+    sklearn \
+    tensorflow \
+    uncertainties \
+    torch==1.9.0+cu111 torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+
+# Set up BindsNet
+WORKDIR /bindsnet
+RUN mkdir bindsnet && touch bindsnet/__init__.py
+COPY pyproject.toml poetry.lock README.md ./
+
+# Choose between development and production setup
+ARG DEPS=development
+FROM base-${DEPS}
+
+RUN if [ "$DEPS" = "development" ]; then poetry install; else poetry install --no-dev; fi
+
+# Remove downloaded wheels to save space
+RUN rm -rf $HOME/.cache/pypoetry/artifacts
+
+# Copy the rest of your application
+COPY . .
+
+# Final setup
+CMD ["python", "your_script.py"]
