@@ -45,12 +45,12 @@ class ExaCartpoleStatic(gym.Env):
     def __init__(self):
         super().__init__()
         self.env_comm = ExaComm.env_comm
-        self.env = gym.make('CartPole-v0')
+        self.env = gym.make('CartPole-v1')
         self.action_space = self.env.action_space
         self.observation_space = self.env.observation_space
 
     def step(self, action):
-        next_state, reward, done, info = self.env.step(action)
+        next_state, reward, done, info, _ = self.env.step(action)
         time.sleep(0)  # Delay in seconds
 
         rank = self.env_comm.rank
