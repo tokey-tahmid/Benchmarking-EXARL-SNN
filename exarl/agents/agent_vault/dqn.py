@@ -410,11 +410,12 @@ class DQN(erl.ExaAgent):
                         loss = LossHistory()
                         sample_weight = batch[3] ** (1 - self.epsilon)
                         if self.model_type == 'SNN':
+                            target_data = batch[1][:, np.newaxis, :]
                             with nengo_dl.Simulator(self.model) as sim:
-                                print('len(batch)= ', len(batch))
-                                print("batch[0] shape:", batch[0].shape)
-                                print("batch[1] shape:", batch[1].shape)
-                                sim.fit(batch[0], {self.output_probe: batch[1]}, epochs=1, verbose=0)
+                                print("x", batch[0].shape)
+                                print("y", target_data.shape)
+                                sim.compile(loss=self.loss, optimizer=self.optimizer)
+                                sim.fit(batch[0], target_data, epochs=1, verbose=0)
                         else:
                             self.model.fit(batch[0], batch[1], epochs=1, batch_size=1, verbose=0, callbacks=loss, sample_weight=sample_weight)
                         loss = loss.loss
@@ -424,11 +425,12 @@ class DQN(erl.ExaAgent):
                         loss = self.training_step(batch)
                     else:
                         if self.model_type == 'SNN':
+                            target_data = batch[1][:, np.newaxis, :]
                             with nengo_dl.Simulator(self.model) as sim:
-                                print('len(batch)= ', len(batch))
-                                print("batch[0] shape:", batch[0].shape)
-                                print("batch[1] shape:", batch[1].shape)
-                                sim.fit(batch[0], {self.output_probe: batch[1]}, epochs=1, verbose=0)
+                                print("x", batch[0].shape)
+                                print("y", target_data.shape)
+                                sim.compile(loss=self.loss, optimizer=self.optimizer)
+                                sim.fit(batch[0], target_data, epochs=1, verbose=0)
                         else:
                             self.model.fit(batch[0], batch[1], epochs=1, verbose=0)
             end_time = time.time()
