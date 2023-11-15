@@ -174,7 +174,7 @@ class DQN(erl.ExaAgent):
         # Build network model
         if self.is_learner:
             with tf.device(self.device):
-                self.model = self._build_model()
+                self.model, self.output_probe = self._build_model()
                 if self.model_type == 'SNN':
                     with nengo_dl.Simulator(self.model) as sim:
                         sim.compile(loss=self.loss, optimizer=self.optimizer)
@@ -191,7 +191,7 @@ class DQN(erl.ExaAgent):
         else:
             self.model = None
         with tf.device('/CPU:0'):
-            self.target_model = self._build_model()
+            self.target_model, self.output_probe = self._build_model()
             self.target_model._name = "target_model"
             if self.model_type == 'SNN':
                 with nengo_dl.Simulator(self.target_model) as sim:
@@ -411,7 +411,10 @@ class DQN(erl.ExaAgent):
                         sample_weight = batch[3] ** (1 - self.epsilon)
                         if self.model_type == 'SNN':
                             with nengo_dl.Simulator(self.model) as sim:
-                                sim.fit(batch[0], batch[1], epochs=1, batch_size=1, verbose=0, callbacks=loss, sample_weight=sample_weight)
+                                print('len(batch)= ', len(batch))
+                                print("batch[0] shape:", batch[0].shape)
+                                print("batch[1] shape:", batch[1].shape)
+                                sim.fit(batch[0], {self.output_probe: batch[1]}, epochs=1, verbose=0)
                         else:
                             self.model.fit(batch[0], batch[1], epochs=1, batch_size=1, verbose=0, callbacks=loss, sample_weight=sample_weight)
                         loss = loss.loss
@@ -422,7 +425,10 @@ class DQN(erl.ExaAgent):
                     else:
                         if self.model_type == 'SNN':
                             with nengo_dl.Simulator(self.model) as sim:
-                                sim.fit(batch[0], batch[1], epochs=1, verbose=0)
+                                print('len(batch)= ', len(batch))
+                                print("batch[0] shape:", batch[0].shape)
+                                print("batch[1] shape:", batch[1].shape)
+                                sim.fit(batch[0], {self.output_probe: batch[1]}, epochs=1, verbose=0)
                         else:
                             self.model.fit(batch[0], batch[1], epochs=1, verbose=0)
             end_time = time.time()

@@ -24,4 +24,7 @@ def build_model(self):
         output_layer = nengo.Ensemble(n_neurons=self.output_dim, dimensions=1, neuron_type=nengo.Direct())
         nengo.Connection(prev_layer, output_layer, synapse=None)
 
-    return model
+        # Attach a probe to the output layer
+        output_probe = nengo.Probe(output_layer, synapse=0.01)
+
+    return model, output_probe
