@@ -119,6 +119,8 @@ class DQN(erl.ExaAgent):
         if self.model_type == 'MLP':
             # for mlp
             self.dense = cd.run_params['dense']
+            self.activation = cd.run_params['activation']
+            self.out_activation = cd.run_params['out_activation']
 
         if self.model_type == 'LSTM':
             # for lstm
@@ -127,6 +129,8 @@ class DQN(erl.ExaAgent):
             self.regularizer = cd.run_params['regularizer']
             self.clipnorm = cd.run_params['clipnorm']
             self.clipvalue = cd.run_params['clipvalue']
+            self.activation = cd.run_params['activation']
+            self.out_activation = cd.run_params['out_activation']
        
         if self.model_type == 'SNN':
             # for snn
@@ -135,9 +139,7 @@ class DQN(erl.ExaAgent):
             self.output_dim = cd.run_params['output_dim']
             self.seed = cd.run_params['seed']
        
-        # for both
-        #self.activation = cd.run_params['activation']
-        #self.out_activation = cd.run_params['out_activation']
+        # for all
         self.optimizer = cd.run_params['optimizer']
         self.loss = cd.run_params['loss']
         self.n_actions = cd.run_params['nactions']
@@ -194,8 +196,7 @@ class DQN(erl.ExaAgent):
             if self.model_type == 'SNN':
                 with nengo_dl.Simulator(self.target_model) as sim:
                     sim.compile(loss=self.loss, optimizer=self.optimizer)
-                    # Assuming 'ensembles' and 'connections' are the lists of Nengo objects
-                    self.target_weights = sim.get_nengo_params(ensembles + connections)
+                    #self.target_weights = sim.get_nengo_params(self.model.Connection)
             else:
                 self.target_model.compile(loss=self.loss, optimizer=self.optimizer)
                 # self.target_model.summary()
@@ -289,8 +290,11 @@ class DQN(erl.ExaAgent):
         else:
             np_state = np.array(state).reshape(1, 1, len(state))
             with tf.device(self.device):
-                with nengo_dl.Simulator(self.target_model) as sim:
-                    act_values = sim.predict(np_state)
+                if self.model_type == 'SNN':
+                    with nengo_dl.Simulator(self.target_model) as sim:
+                        act_values = sim.predict(np_state)
+                else:
+                    act_values = self.target_model.predict(np_state)
             action = np.argmax(act_values[0])
             return action, 1
 
@@ -326,12 +330,18 @@ class DQN(erl.ExaAgent):
         expectedQ = 0
         if not done:
             with tf.device(self.device):
-                with nengo_dl.Simulator(self.target_model) as sim:
-                    expectedQ = self.gamma * np.amax(sim.predict(np_next_state)[0])
+                if self.model_type == 'SNN':
+                    with nengo_dl.Simulator(self.target_model) as sim:
+                        expectedQ = self.gamma * np.amax(sim.predict(np_next_state)[0])
+                else:
+                    expectedQ = self.gamma * np.amax(self.target_model.predict(np_next_state)[0])
         target = reward + expectedQ
         with tf.device(self.device):
-            with nengo_dl.Simulator(self.target_model) as sim:
-                target_f = sim.predict(np_state)
+            if self.model_type == 'SNN':
+                with nengo_dl.Simulator(self.target_model) as sim:
+                    target_f = sim.predict(np_state)
+            else:
+                target_f = self.target_model.predict(np_state)
         # For handling continuous to discrete actions
         action_idx = action if self.is_discrete else np.where(self.actions == action)[1]
         target_f[0][action_idx] = target
@@ -399,16 +409,22 @@ class DQN(erl.ExaAgent):
                     else:
                         loss = LossHistory()
                         sample_weight = batch[3] ** (1 - self.epsilon)
-                        with nengo_dl.Simulator(self.model) as sim:
-                            sim.fit(batch[0], batch[1], epochs=1, batch_size=1, verbose=0, callbacks=loss, sample_weight=sample_weight)
+                        if self.model_type == 'SNN':
+                            with nengo_dl.Simulator(self.model) as sim:
+                                sim.fit(batch[0], batch[1], epochs=1, batch_size=1, verbose=0, callbacks=loss, sample_weight=sample_weight)
+                        else:
+                            self.model.fit(batch[0], batch[1], epochs=1, batch_size=1, verbose=0, callbacks=loss, sample_weight=sample_weight)
                         loss = loss.loss
                     ret = batch[2], loss
                 else:
                     if multiLearner:
                         loss = self.training_step(batch)
                     else:
-                        with nengo_dl.Simulator(self.model) as sim:
-                            sim.fit(batch[0], batch[1], epochs=1, verbose=0)
+                        if self.model_type == 'SNN':
+                            with nengo_dl.Simulator(self.model) as sim:
+                                sim.fit(batch[0], batch[1], epochs=1, verbose=0)
+                        else:
+                            self.model.fit(batch[0], batch[1], epochs=1, verbose=0)
             end_time = time.time()
             self.training_time += (end_time - start_time)
             self.ntraining_time += 1
@@ -465,8 +481,11 @@ class DQN(erl.ExaAgent):
         """
         logger.debug("Agent[%s] - get target weight." % str(self.rank))
         #return self.target_model.get_weights()
-        with nengo_dl.Simulator(self.target_model) as sim:
-            return sim.get_nengo_params(ensembles + connections)
+        if self.model_type == 'SNN':
+            with nengo_dl.Simulator(self.target_model) as sim:
+                return sim.get_nengo_params(self.model.Connection)
+        else:
+            return self.target_model.get_weights()
 
     def set_weights(self, weights):
         """Set model weights
@@ -477,9 +496,11 @@ class DQN(erl.ExaAgent):
         logger.info("Agent[%s] - set target weight." % str(self.rank))
         logger.debug("Agent[%s] - set target weight: %s" % (str(self.rank), weights))
         with tf.device(self.device):
-            #self.target_model.set_weights(weights)
-            with nengo_dl.Simulator(self.target_model) as sim:
-                sim.set_nengo_params(weights) #//TODO: Check if this is correct
+            if self.model_type == 'SNN':
+                with nengo_dl.Simulator(self.target_model) as sim:
+                    sim.set_nengo_params(weights) #//TODO: Check if this is correct
+            else:
+                self.target_model.set_weights(weights)
 
     @introspectTrace()
     def target_train(self):
@@ -488,10 +509,14 @@ class DQN(erl.ExaAgent):
         if self.is_learner:
             logger.info("Agent[%s] - update target weights." % str(self.rank))
             with tf.device(self.device):
-                with nengo_dl.Simulator(self.model) as sim:
-                    model_weights = sim.get_nengo_params(ensembles + connections)
-                with nengo_dl.Simulator(self.target_model) as sim:
-                    target_weights = sim.get_nengo_params(ensembles + connections)
+                if self.model_type == 'SNN':
+                    with nengo_dl.Simulator(self.model) as sim:
+                        model_weights = sim.get_nengo_params(self.model.Connection)
+                    with nengo_dl.Simulator(self.target_model) as sim:
+                        target_weights = sim.get_nengo_params(self.model.Connection)
+                else:
+                    model_weights = self.model.get_weights()
+                    target_weights = self.target_model.get_weights()
             for i in range(len(target_weights)):
                 target_weights[i] = (
                     self.tau * model_weights[i] + (1 - self.tau) * target_weights[i]
